@@ -1,0 +1,17 @@
+{
+  "name": "message",
+  "private": true,
+  "dependencies": {
+    "requirejs": "~2.1.8",
+    "requirejs-text": "~2.0.12",
+    "jquery": "~1.10.2",
+    "avalon": "~1.3.2",
+    "underscore": "~1.7.0",
+    "sammy": "~0.7.5",
+    "avalonframe": "git+http://gitlab.baidu.com/cidfe/avalonframe.git#~0.0.1",
+    "commonui": "git+http://gitlab.baidu.com/cidfe/commonui.git#~0.0.1"
+  },
+  "devDependencies": {
+    "mcc-header": "git+http://gitlab.baidu.com/cidfe/mcc-header.git#~0.0.0"
+  }
+}

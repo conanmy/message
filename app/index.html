@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>百度推广 消息中心</title>
+    <link rel="stylesheet" href="asset/common/css/main.css" />
+</head>
+<body>
+    <div id="header" class="header">
+        <div></div>
+    </div>
+    <div class="wrapper">
+        <h1>消息中心</h1>
+        <div class="main-wrapper">
+            <div class="main-tab">
+                <a href="#/" class="main-tab-item" id="main-tab-show" data-log="{'target':'setting','subTarget':'msg-view'}">
+                    <span class="main-tab-item-icon message-show-tab-icon"></span>
+                    <span class="main-tab-item-arrow-wrapper"><span class="main-tab-item-arrow"></span></span>
+                </a>
+                <a href="#/setting" class="main-tab-item" id="main-tab-setting" data-log="{'target':'setting','subTarget':'msg-setting'}">
+                    <span class="main-tab-item-icon message-setting-tab-icon"></span>
+                    <span class="main-tab-item-arrow-wrapper"><span class="main-tab-item-arrow"></span></span>
+                </a>
+            </div>
+            <div id="main" class="container"></div>
+        </div>
+    </div>
+    <div class="foot">
+        <p>
+            ©2014 Baidu&nbsp;home<a href="http://www.baidu.com/duty/" target="_blank">使用百度前必读</a>
+        </p>
+    </div>
+    <script type="text/javascript" src="dep/requirejs/require.js"></script>
+    <script type="text/javascript" src="dep/avalon/avalon.js"></script>
+    <script type="text/javascript">
+    avalon.config({
+            loader: false
+        });
+        require.config({
+            baseUrl: 'asset',
+            urlArgs: '<{date}>',
+            paths: {
+                text: '../dep/requirejs-text/text',
+                jquery: '../dep/jquery/jquery',
+                sammy: '../dep/sammy/lib/sammy',
+                underscore: '../dep/underscore/underscore',
+                'jquery-cookie': '../dep/jquery-cookie/jquery.cookie',
+                'bootstrap-transition': '../dep/commonui/common/transition',
+                'bootstrap-modal': '../dep/commonui/modal/index',
+                'bootstrap-alert': '../dep/commonui/alert/index',
+                'bootstrap-popover': '../dep/commonui/popover/index',
+                'mcc-header': '../dep/mcc-header/dist'
+            },
+            packages: [{
+                name: 'avalonFrame',
+                location: '../dep/avalonframe'
+            }, {
+                name: 'commonUI',
+                location: '../dep/commonui'
+            }],
+            shim: {
+                'bootstrap-transition': {
+                    deps: ['jquery'],
+                    exports: '$.support.transition'
+                },
+                'bootstrap-modal': {
+                    deps: ['jquery'],
+                    exports: '$.fn.modal'
+                },
+                'bootstrap-alert': {
+                    deps: ['jquery'],
+                    exports: '$.fn.alert'
+                },
+                'bootstrap-popover': {
+                    deps: ['jquery'],
+                    exports: '$.fn.popover'
+                }
+            }
+        });
+        require(['main']);
+    </script>
+</body>
+</html>

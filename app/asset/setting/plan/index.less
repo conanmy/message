@@ -1,0 +1,65 @@
+.plan {
+    &-tip {
+        color: #aaa;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eeebeb;
+    }
+    &-setting {
+        .clearfix();
+        margin-bottom: 20px;    
+    }
+    &-not-in-plan,
+    &-in-plan {
+        font-size: 12px;
+        float: left;
+        .box-sizing(border-box);
+        border: 1px solid #ddd;
+        height: 360px;
+        ul {
+            height: 328px;
+            overflow: scroll;
+        }
+        h3 {
+            padding: 6px;
+            background: #f2f5fa;
+            border-bottom: 1px solid #e8e8e8;
+        }
+        li {
+            padding: 6px;
+            .clearfix();
+            span {
+                float: left;
+                .text-ellipsis(210px);
+            }
+            a {
+                float: right;
+                text-decoration: none;
+                display: none;
+            }
+            &:hover {
+                background: #f6faff;
+                a {
+                    display: block;
+                }
+            }
+        }
+    }
+    &-not-in-plan {
+        margin-right: 2%;
+        width: 49%;
+    }
+    &-in-plan {
+        width: 49%;
+        &-empty {
+            text-align: center;
+            padding: 5px;
+            margin-top: 130px;
+        }
+    }
+    &-actions {
+        .btn {
+            margin-right: 10px;
+        }
+    }
+}

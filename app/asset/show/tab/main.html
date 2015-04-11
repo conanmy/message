@@ -1,0 +1,12 @@
+<div ms-controller="messageTab">
+    <div ms-repeat-category="categories">
+        <div class="message-tab-item" ms-class="current:(category.id==params.categoryId)" ms-click="changeTab(category.id)" ms-attr-data-log="{'target':'view','subTarget':'category','fromCategoryId':'{{category.id}}'}">
+            {{category.name}}<span ms-if="category.msgNum" class="new-message-num">{{category.msgNum}}</span>
+        </div>
+        <div class="message-tab-item message-tab-sub-item" ms-class="current:(subcategory.id==params.categoryId)" ms-click="changeTab(subcategory.id)" ms-repeat-subcategory="category.subCategoryList" ms-attr-data-log="{'target':'view','subTarget':'category','fromCategoryId':'{{subcategory.id}}'}">
+            <span class="message-tab-sub-dot">●</span>
+            {{subcategory.name}}
+            <span ms-if="subcategory.msgNum" class="new-message-num">{{subcategory.msgNum}}</span>
+        </div>
+    </div>
+</div>

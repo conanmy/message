@@ -1,0 +1,104 @@
+.operate-panel {
+    position: relative;
+    margin-bottom: 30px;
+    input {
+        vertical-align: middle;
+    }
+    label {
+        margin-left: 10px;
+    }
+    .dark-button {
+        margin-left: 10px;
+    }
+    .dark-button.disable {
+        background-color: @dark-gray-color;
+        cursor: default;
+    }
+}
+.message-switch-item {
+    cursor: pointer;
+    color: @link-color;
+}
+.message-switch-item.active {
+    color: @main-font-color;
+    cursor: default;
+}
+.message-list {
+    .message-item {
+        position: relative;
+    }
+    input {
+        vertical-align: top;
+        margin-top: 5px;
+    }
+}
+.operate-panel,
+.message-list {
+    input[type=checkbox] {
+        width: 14px;
+        height: 14px;
+    }
+}
+.message-item {
+    &-main {
+        display: inline-block;
+        width: 800px;
+        margin-left: 30px;
+        padding-bottom: 40px;
+        p {
+            line-height: 22px;
+        }
+        a.disable {
+            color: @dark-gray-color;
+        }
+    }
+    &-content {
+        margin-top: 12px;
+    }
+    &-time {
+        margin-left: 10px;
+        margin-right: 5px;
+    }
+    &-tag,
+    &-status,
+    &-productname {
+        padding: 1px 7px;
+        color: white;
+    }
+    &-status.read {
+        background-color: @main-green-color;
+    }
+    &-status.unread {
+        background-color: @main-yellow-color;
+    }
+    &-tag {
+        background-color: @dark-gray-color;
+    }
+    &-productname {
+        background-color: #8899bb;
+    }
+    &-line-wrapper {
+        position: absolute;
+        display: inline-block;
+        width: 30px;
+        height: 100%;
+    }
+    &-line {
+        position: absolute;
+        left: 10px;
+        width: 1px;
+        height: 100%;
+        background-color: @dark-gray-color;
+    }
+    &-dot {
+        position: absolute;
+        left: -4px;
+        color: @dark-gray-color;
+    }
+}
+.message-main .pagination {
+    float: right;
+}
+.message-main .pagination .message-page-ellipsis {
+    border: none;
+}

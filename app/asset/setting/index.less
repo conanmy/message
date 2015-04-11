@@ -1,0 +1,114 @@
+@import './plan/index.less';
+.setting {
+    position: relative;
+    padding-top: 40px;
+    &-item {
+        .text-ellipsis(90px);
+        margin-right: 5px;
+        width: 90px;
+        font-size: 14px;
+        input {
+            margin-right: 2px;
+            vertical-align: middle;
+        }
+    }
+    &-area {
+        margin-bottom: 30px;
+        padding: 0 40px;
+    }
+    &-area h2 {
+        font-size: 16px;
+        position: relative;
+        margin-bottom: 10px;
+        padding-left: 8px;
+        line-height: 1em;
+        color: #6a7183;
+        &:before {
+            background: #65affa;
+            content: '';
+            display: block;
+            width: 4px;
+            height: 14px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -8px;
+        }
+    }
+    &-sync {
+        position: absolute;
+        right: 40px;
+        z-index: 2;
+        input {
+            vertical-align: middle;
+        }
+    }
+    &-receiver {
+        &-add-new {
+            margin: 20px 0;
+        }
+        &-tip {
+            margin-bottom: 10px;
+        }
+        .text {
+            width: 100%;
+            .box-sizing(border-box);
+        }
+        .split {
+            border-right: 1px solid;
+            margin-right: 10px;
+            padding-right: 10px;
+        }
+        .disabled {
+            color: #6a7183;
+        }
+        .error {
+            color: #FF0000;
+        }
+        .warning {
+            color: #FF9900;
+            .text-ellipsis(160px);
+        }
+        .editing {
+            vertical-align: top;
+        }
+    }
+    &-product {
+        &-title {
+            .clearfix();
+            margin-bottom: 10px;
+            h2,
+            select {
+                float: left;
+                margin-right: 15px;
+            }
+            h2 {
+                margin-bottom: 0;
+                line-height: 23px;
+            }
+        }
+        .text {
+            width: 60px;
+        }
+    }
+    &-actions {
+        height: 47px;
+        p{
+            padding: 10px 40px;
+            background: #e7e9ef;
+            border-top: 1px solid #c4c8d0;
+            &.fixed {
+                position: fixed;
+                bottom: 0;
+                width: 1029px;
+            }
+        }
+    }
+    .error-tip {
+        color: red;
+    }
+    .content-error {
+        text-align: center;
+        color: red;
+    }
+}

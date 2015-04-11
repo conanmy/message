@@ -1,0 +1,243 @@
+<div id="setting" ms-controller="setting" class="setting">
+    <p class="setting-sync" ms-if="!isChengxinUser&&!sync.hasError">
+        在
+        <input type="checkbox" ms-duplex-radio="sync.phone">
+        手机版
+        <input type="checkbox" ms-duplex-radio="sync.client">
+        客户端&nbsp;上已读的消息，不重复提示
+    </p>
+    <div class="setting-receiver setting-area">
+        <h2>消息接收人设置</h2>
+        <p class="setting-receiver-tip">
+            将按照以下联系方式给您发送账户消息的短信和邮件提醒&nbsp;<a href="javascript:void(0)" ms-click="showAuth" data-log="{'target':'setting','subTarget':'auth-statement'}">请点击查看授权声明</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="15.5%">备注</th>
+                    <th width="16.5%">邮箱</th>
+                    <th width="18%">手机号码</th>
+                    <th width="34.5%">接收消息类型</th>
+                    <th width="15.5%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ms-if="!receivers.hasError" ms-repeat-receiver="receivers" ms-class="editing:receiver.isEditing">
+                    <td>
+                        <span ms-visible="!receiver.isEditing">{{receiver.alias}}</span>
+                        <input class="text" type="text" ms-duplex="receiver.alias" ms-visible="receiver.isEditing" ms-keyup="testAlias(receiver)">
+                        <p class="error" ms-visible="receiver.isEditing">
+                            {{receiver.aliasError}}
+                        </p>
+                    </td>
+                    <td>
+                        <span ms-visible="!receiver.isEditing">{{receiver.mail}}</span>
+                        <input class="text" type="text" ms-duplex="receiver.mail" ms-visible="receiver.isEditing" ms-keyup="testMail(receiver)">
+                        <p class="error" ms-visible="receiver.isEditing">
+                            {{receiver.mailError}}
+                        </p>
+                    </td>
+                    <td>
+                        <span ms-visible="!receiver.isEditing">{{receiver.phone}}</span>
+                        <input class="text" type="text" ms-duplex="receiver.phone" ms-visible="receiver.isEditing" ms-keyup="testPhone(receiver)">
+                        <p class="error" ms-visible="receiver.isEditing">
+                            {{receiver.phoneError}}
+                        </p>
+                        <p class="warning" title="您授权上述联系方式接受百度向您以短信或邮件形式发送任何提醒及通知" ms-visible="(!receiver.isEditing)&&(!receiver.contactid)">
+                            您授权上述联系方式接受百度向您以短信或邮件形式发送任何提醒及通知
+                        </p>
+                    </td>
+                    <td>
+                        <span class="setting-item" ms-repeat-product="$products">
+                            <input type="checkbox" ms-disabled="!receiver.isEditing" ms-duplex-radio="receiver.product[product]">
+                            <span ms-title="$productInfoMap[product].name">{{$productInfoMap[product].name}}</span>
+                        </span>
+                        <p ms-visible="receiver.isEditing"></p>
+                    </td>
+                    <td>
+                        <a class="split" href="javascript:void(0);" ms-click="modReceiver(receiver)" ms-visible="!receiver.isEditing">修改</a>
+                        <a href="javascript:void(0);" ms-class="disabled:receivers.length<=1" ms-click="delReceiver(receiver)" ms-visible="!receiver.isEditing">删除</a>
+                        <a class="split" href="javascript:void(0);" ms-click="saveReceiver(receiver)" ms-visible="receiver.isEditing">保存</a>
+                        <a href="javascript:void(0);" ms-click="cancleReceiver(receiver)" ms-visible="receiver.isEditing">取消</a>
+                    </td>
+                </tr>
+                <tr ms-if="receivers.hasError">
+                    <td class="content-error" colspan="5">
+                        服务器异常，请刷新后重新尝试
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="setting-receiver-add-new" ms-if="!receivers.hasError">
+            还可以添加{{10-receivers.length}}个联系人&nbsp;<input class="btn btn-blue" type="button" ms-click="addNewReceiver" ms-if="receivers.length<10" value="添加联系人">
+        </p>
+        <table ms-if="newReceiver.isEditing">
+            <tbody class="table">
+                <tr class="editing">
+                    <td width="15.5%">
+                        <input class="text" type="text" ms-duplex="newReceiver.alias" placeholder="备注" ms-keyup="testAlias(newReceiver)">
+                        <p class="error">
+                            {{newReceiver.aliasError}}
+                        </p>
+                    </td>
+                    <td width="16.5%">
+                        <input class="text" type="text" ms-duplex="newReceiver.mail" placeholder="邮箱" ms-keyup="testMail(newReceiver)">
+                        <p class="error">
+                            {{newReceiver.mailError}}
+                        </p>
+                    </td>
+                    <td width="18%">
+                        <input class="text" type="text" ms-duplex="newReceiver.phone" placeholder="手机号码" ms-keyup="testPhone(newReceiver)">
+                        <p class="error">
+                            {{newReceiver.phoneError}}
+                        </p>
+                    </td>
+                    <td width="34.5%">
+                        <span ms-repeat-product="$products">
+                            <input type="checkbox" ms-duplex-radio="newReceiver.product[product]">{{$productInfoMap[product].name}}
+                        </span>
+                    </td>
+                    <td width="15.5%">
+                        <input class="btn btn-blue" type="button" value="添加" ms-click="saveNewReceiver(newReceiver)">
+                        <input class="btn btn-default" type="button" value="取消" ms-click="cancleNewReceiver(newReceiver)">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="setting-account setting-area" ms-if="!isChengxinUser">
+        <h2>账户消息订阅</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="50%">
+                        消息类型
+                    </th>
+                    <th width="50%">
+                        接收方式
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ms-repeat-account="accounts.options" ms-if="!accounts.hasError">
+                    <td>
+                        {{account.words[0]}}
+                        <span ms-if-loop="account.type === 'select'">
+                            <select ms-duplex="account.value">
+                                <option ms-repeat-option="account.values" ms-attr-value="{{option.val}}">{{option.text}}</option>
+                            </select>
+                        </span>
+                        <span ms-if-loop="account.type === 'select'">
+                            {{account.words[1]}}
+                        </span>
+                        <i class="icon-popover-help" ms-if-loop="account.helpId" ms-attr-data-id="{{account.helpId}}" data-action="popover" data-trigger="hover"></i>
+                    </td>
+                    <td>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="account.inbox.disabled" ms-duplex-radio="account.inbox.checked">站内信
+                        </span>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="account.sms.disabled" ms-duplex-radio="account.sms.checked">短信
+                        </span>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="account.mail.disabled" ms-duplex-radio="account.mail.checked">邮件
+                        </span>
+                    </td>
+                </tr>
+                <tr ms-if="accounts.hasError">
+                    <td colspan="2" class="content-error">
+                        服务器异常，请刷新后重新尝试
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="setting-product setting-area" ms-if="!isChengxinUser">
+        <div class="setting-product-title">
+            <h2>请选择产品</h2>
+            <select ms-if="!$productsSetting.hasError" ms-duplex="nowProduct">
+                <option ms-repeat-product="$productsSetting" ms-attr-value="{{product}}">
+                    {{$productInfoMap[product].name}}
+                </option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="50%">
+                        消息类型
+                    </th>
+                    <th width="50%">
+                        接收方式
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ms-if="!products.hasError" ms-repeat-product="products.options">
+                    <td>
+                        {{product.words[0]}}
+                        <span ms-if-loop="product.type === 'select'">
+                            <select ms-duplex="product.value">
+                                <option ms-repeat-option="product.values" ms-attr-value="{{option.val}}">{{option.text}}</option>
+                            </select>
+                        </span>
+                        <span ms-if-loop="product.type === 'select'">
+                            {{product.words[1]}}
+                        </span>
+                        <span ms-if-loop="product.type === 'input'">
+                            <input class="text" type="text" ms-duplex="product.value">
+                            {{product.words[1] || ''}}
+                            <span class="error-tip" ms-visible="!product.rule.test(product.value)">
+                                {{product.errorTip}}
+                            </span>
+                        </span>
+                        <span ms-if-loop="product.type === 'plan'">
+                            <input class="btn btn-default" type="button" value="设置计划" ms-click="setPlan(product)">
+                            <br>
+                            <a title="点击设置要监控的计划" href="javascript:void(0);" ms-if-loop="product.value.length===0" ms-click="setPlan(product)">
+                                所设置计划
+                            </a>
+                            <a title="点击设置要监控的计划" href="javascript:void(0);" ms-if-loop="product.value.length<2&&product.value.length>0" ms-click="setPlan(product)">
+                                {{product.$planMap[product.value[0]]}}
+                            </a>
+                            <a title="点击设置要监控的计划" href="javascript:void(0);" ms-if-loop="product.value.length>=2" ms-click="setPlan(product)">
+                                {{product.$planMap[product.value[0]]}}，{{product.$planMap[product.value[1]]}}
+                            </a>
+                            <span ms-if-loop="product.value.length===0">
+                                {{product.words[3]}}
+                            </span>
+                            <span ms-if-loop="product.value.length<=2&&product.value.length>0">
+                                {{product.words[1]}}
+                            </span>
+                            <span ms-if-loop="product.value.length>2">
+                                {{product.words[2]}}
+                            </span>
+                        </span>
+                        <i class="icon-popover-help" ms-if-loop="product.helpId" ms-attr-data-id="{{product.helpId}}" data-action="popover" data-trigger="hover"></i>
+                    </td>
+                    <td>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="product.inbox.disabled" ms-duplex-radio="product.inbox.checked">站内信
+                        </span>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="product.sms.disabled" ms-duplex-radio="product.sms.checked">短信
+                        </span>
+                        <span class="setting-item">
+                            <input type="checkbox" ms-disabled="product.mail.disabled" ms-duplex-radio="product.mail.checked">邮件
+                        </span>
+                    </td>
+                </tr>
+                <tr ms-if="products.hasError">
+                    <td colspan="2" class="content-error">
+                        服务器异常，请刷新后重新尝试
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="setting-actions" class="setting-actions" ms-if="!isChengxinUser">
+        <p class="fixed">
+            <input id="save-setting" class="btn btn-blue" type="button" value="保存" ms-click="saveSetting" data-log="{'target':'setting','subTarget':'ok-click'}">
+        </p>
+    </div>
+</div>

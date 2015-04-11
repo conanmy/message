@@ -1,0 +1,19 @@
+<div ms-controller="mccMessageTab">
+    <div ms-repeat-category="categories">
+        <div class="message-tab-item" ms-class="current:(category.id==categoryId)" ms-class-1="unclickable:(category.id==2)" ms-click="changeTab(category.id)" ms-attr-data-log="{'target':'view','subTarget':'category','fromCategoryId':'{{category.id}}'}">
+            {{category.name}}<span ms-if="category.msgNum" class="new-message-num">{{category.msgNum}}</span>
+        </div>
+        <div ms-if="category.subCategoryList&&categoriesOrigin[$index].subCategoryList.length>10" class="message-tab-search">
+            <input id="tab-search-input" ms-duplex="searchText" placeholder="输入以搜索账户" />
+            <span ms-click="searchTab($index)" class="message-tab-search-button"></span>
+            <span ms-visible="searchText.length>0" class="message-tab-search-close" ms-click="clearSearch($index)">×</span>
+        </div>
+        <div ms-if="category.subCategoryList&&category.subCategoryList.length>0" class="message-tab-wrapper">
+            <div ms-attr-id="subcategory.id" class="message-tab-item message-tab-sub-item" ms-class="current:(subcategory.id==categoryId)" ms-click="changeTab(subcategory.id)" ms-repeat-subcategory="category.subCategoryList" ms-attr-data-log="{'target':'view','subTarget':'category','fromCategoryId':'{{subcategory.id}}'}">
+                <span class="message-tab-sub-dot">●</span>
+                <span ms-attr-title="subcategory.name">{{subcategory.name | caseTruncate(10,'..')}}</span>
+                <span class="new-message-num-wrapper"></span>
+            </div>
+        </div>
+    </div>
+</div>

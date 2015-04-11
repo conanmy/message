@@ -1,0 +1,85 @@
+body {
+    font: 14px/1.5 'Microsoft YaHei','微软雅黑',Helvetica,Sans-serif;
+    color: @main-font-color;
+}
+
+:focus {
+    outline:none;
+}
+
+button {
+    .box-sizing(content-box);
+}
+
+textarea {
+    resize: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
+    font-weight: bold;
+}
+
+a {
+    color: @link-color;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+[ms-controller]{
+    display:none
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.dark-button {
+    padding: 3px 8px;
+    color: white;
+    background-color: #4d6aa4;
+    cursor: pointer;
+}
+
+.pagination {
+    li {
+        display: inline-block;
+        margin-right: 3px;
+        padding: 5px 10px;
+        border: 1px solid #c1c1c1;
+        cursor: pointer;
+    }
+    li.active {
+        padding: 6px 12px;
+        border: none;
+        color: white;
+        background-color: @light-blue-color;
+        cursor: default;
+    }
+}
+
+.icon-popover-help {
+    display: inline-block;
+    height: 16px;
+    width: 15px;
+    margin-left: 3px;
+    background: url(@icons-path) -4px -33px transparent;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.chengxinuser {
+    .uccn-item-finance,
+    .uccn-item-phone,
+    .uccn-item-products,
+    .uccn-item-service {
+        display: none;
+    }
+}

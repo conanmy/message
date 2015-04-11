@@ -1,0 +1,69 @@
+<div ms-controller="mccMessageList">
+    <div ms-if="message.hasError">
+        <div class="empty-tip">服务器异常，请刷新页面重新尝试</div>
+    </div>
+    <div class="operate-panel" ms-if="!message.hasError">
+        <input type="checkbox" id="check-all-message" ms-click="checkAll" ms-checked="message.list.length<0" /><label for="check-all-message">全选</label>
+        <span id="mark-message-read" class="dark-button disable" ms-click="markRead" ms-attr-data-log="{'target':'view','subTarget':'batchmark','fromCategoryId':'{{categoryId}}'}">标记所选为已读</span>
+        <span class="mcc-message-status-switch">
+            <span ms-repeat-status="message.status" ms-click="changeStatus(status.id)">
+                <span class="message-switch-item" ms-class="active:(message.currentStatus==status.id)" ms-attr-data-log="{'target':'view','subTarget':'changestatus-{{status.id}}','fromCategoryId':'{{categoryId}}'}">{{status.name}}</span>
+                <span ms-if="!$last"> | </span>
+            </span>
+        </span>
+        <select id="mcc-message-sub-category" ms-if="message.subCategoryList&&message.subCategoryList.length>0" ms-change="changeSubCategory" class="mcc-message-sub-category" ms-duplex="message.currentSubCategoryId">
+            <option ms-repeat-category="message.subCategoryList" ms-attr-value="category.id">{{category.name}}</option>
+        </select>
+    </div>
+    <div class="message-list" ms-if="message.list&&message.list.length>0">
+        <div class="message-item" ms-repeat-message="message.list">
+            <input type="checkbox" ms-change="checkIt($index)" />
+            <div class="message-item-line-wrapper">
+                <div class="message-item-line"><span class="message-item-dot">●</span></div>
+            </div>
+            <div class="message-item-main">
+                <p>
+                    {{message.date}} <span class="message-item-time">{{message.time}}</span> 
+                    <span class="message-item-status" ms-class="read:(message.status==2)" ms-class-1="unread:(message.status==1)">{{message.statusName}}</span>
+                    <span class="message-item-productname" ms-if="message.productName">{{message.productName}}</span>
+                </p>
+                <p class="message-item-content">
+                    <a ms-if="message.linkAhead" ms-href="message.readOnly?'javascript:void(0);':message.linkUrl" ms-attr-target="message.readOnly?'_self':'_blank'" ms-click="markIt($index)" ms-class="disable:message.readOnly&&(message.status==2)" ms-attr-data-log="{'target':'view','subTarget':'content','fromCategoryId':'{{message.categoryId}}','typeid':'{{message.typeid}}'}">{{message.linkText}}</a>
+                    {{message.msgText}}
+                    <a ms-if="!message.linkAhead" ms-href="message.readOnly?'javascript:void(0);':message.linkUrl" ms-attr-target="message.readOnly?'_self':'_blank'" ms-click="markIt($index)" ms-class="disable:message.readOnly&&(message.status==2)" ms-attr-data-log="{'target':'view','subTarget':'content','fromCategoryId':'{{message.categoryId}}','typeid':'{{message.typeid}}'}">{{message.linkText}}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div ms-if="message.list&&message.list.length==0">
+        <div class="empty-tip">该分类下暂无消息</div>
+    </div>
+    <ul ms-if="message.pageNum<7&&message.pageNum>1" class="pagination">
+        <li ms-repeat-page="message.pages" ms-click="changePage(page)" ms-class="active:(page==message.currentPage)">
+        {{page}}
+        </li>
+    </ul>
+    <ul ms-if="message.pageNum>=7" class="pagination">
+        <li ms-visible="message.currentPage>2" ms-click="changePage(1)">
+        1
+        </li>
+        <li ms-visible="message.currentPage>3" class="message-page-ellipsis">
+        ...
+        </li>
+        <li ms-visible="message.currentPage>1" ms-click="changePage(message.currentPage-1)">
+        {{message.currentPage-1}}
+        </li>
+        <li ms-click="changePage(message.currentPage)" ms-class="active">
+        {{message.currentPage}}
+        </li>
+        <li ms-visible="message.currentPage<message.pageNum" ms-click="changePage(message.currentPage+1)">
+        {{message.currentPage+1}}
+        </li>
+        <li ms-visible="(message.currentPage+2)<message.pageNum" class="message-page-ellipsis">
+        ...
+        </li>
+        <li ms-visible="(message.currentPage+1)<message.pageNum" ms-click="changePage(message.pageNum)">
+        {{message.pageNum}}
+        </li>
+    </ul>
+</div>

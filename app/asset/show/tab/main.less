@@ -1,0 +1,41 @@
+.message-tab {
+    &-item,
+    &-sub-item {
+        width: 138px;
+        padding-left: 32px;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+    &-item {
+        height: 60px;
+        line-height: 60px;
+        font-size: 16px;
+        border-bottom: 1px solid Silver;
+        background-color: @gray-color;
+        cursor: pointer;
+    }
+    &-sub-item {
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        border-bottom: none;
+        background-color: transparent;
+    }
+    &-item.current {
+        background-color: white;
+    }
+    &-sub-dot {
+        margin-right: 4px;
+        color: @light-blue-color;
+    }
+}
+.new-message-num {
+    font-size: 12px;
+    background-color: #ff6565;
+    padding: 0 4px;
+    margin-left: 3px;
+    color: white;
+    .border-radius(15px);
+}

@@ -1,0 +1,32 @@
+<div ms-controller="plan">
+    <p class="plan-tip">账户共有{{notInPlan.length+inPlan.length}}个计划，其中{{inPlan.length}}个已添加到达预算下线提醒</p>
+    <div class="plan-setting">
+        <div class="plan-not-in-plan">
+            <h3>未添加监控的计划</h3>
+            <ul>
+                <li ms-repeat-plan="notInPlan">
+                    <span>{{$planMap[plan]}}</span>
+                    <a href="javascript:void(0);" ms-click="addPlan(plan, $remove)">添加</a>
+                </li>
+            </ul>
+        </div>
+        <div class="plan-in-plan">
+            <h3>要添加监控的计划</h3>
+            <ul ms-if="inPlan.length">
+                <li ms-repeat-plan="inPlan">
+                    <span>{{$planMap[plan]}}</span>
+                    <a href="javascript:void(0);" ms-click="removePlan(plan, $remove)">取消添加</a>
+                </li>
+            </ul>
+            <p class="plan-in-plan-empty" ms-if="!inPlan.length">
+                监控的计划列表为空，
+                <br>
+                请从左侧选择计划添加进行监控
+            </p>
+        </div>
+    </div>
+    <p class="plan-actions">
+        <input class="btn btn-blue" type="button" value="确定" ms-click="confirm">
+        <input class="btn btn-default" type="button" value="取消" ms-click="cancle">
+    </p>
+</div>
